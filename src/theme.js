@@ -8,6 +8,7 @@ const theme = {
     backgroudMain: '#e1e4e8',
     common: {
       white: 'white',
+      lightGrey: '#e1e4e8',
     }
   },
   fontSizes: {
