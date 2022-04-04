@@ -15,11 +15,17 @@ const styles = StyleSheet.create({
   colorPrimary: {
     color: theme.colors.primary,
   },
+  fontSizeHeading: {
+    fontSize: theme.fontSizes.heading,
+  },
   fontSizeSubheading: {
     fontSize: theme.fontSizes.subheading,
   },
   fontWeightBold: {
     fontWeight: theme.fontWeights.bold,
+  },
+  commonWhite: {
+    color: theme.colors.common.white,
   }
 });
 
@@ -28,6 +34,8 @@ const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
     styles.text,
     color === 'textSecondary' && styles.colorTextSecondary,
     color === 'primary' && styles.colorPrimary,
+    color === 'white' && styles.commonWhite,
+    fontSize === 'heading' && styles.fontSizeHeading,
     fontSize === 'subheading' && styles.fontSizeSubheading,
     fontWeight === 'bold' && styles.fontWeightBold,
     style,

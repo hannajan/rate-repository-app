@@ -4,12 +4,16 @@ const theme = {
     textSecondary: '#586069',
     primary: '#0366d6',
     appBarBackground: '#24292e',
-    appBarText: 'white'
+    appBarText: 'white',
+    backgroudMain: '#e1e4e8',
+    common: {
+      white: 'white',
+    }
   },
   fontSizes: {
     body: 14,
-    subheading: 16,
-    heading: 18,
+    subheading: 15,
+    heading: 20,
   },
   fonts: {
     main: 'System',
