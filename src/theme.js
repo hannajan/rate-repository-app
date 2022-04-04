@@ -6,6 +6,7 @@ const theme = {
     appBarBackground: '#24292e',
     appBarText: 'white',
     backgroudMain: '#e1e4e8',
+    errorRed: '#d73a4a',
     common: {
       white: 'white',
       lightGrey: '#e1e4e8',
