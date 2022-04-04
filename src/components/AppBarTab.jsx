@@ -6,14 +6,19 @@ import Text from './Text';
 const AppBarTab = ({ text }) => {
 
   const styles = {
-    color: theme.colors.appBarText,
-    fontSize: theme.fontSizes.heading,
-    fontWeight: theme.fontWeights.bold,
+    appBarText: {
+      color: theme.colors.appBarText,
+      fontSize: theme.fontSizes.heading,
+      fontWeight: theme.fontWeights.bold,
+    },
+    AppBarTab: {
+      paddingHorizontal: 10,
+    }
   };
 
   return (
-      <View>
-            <Text style={styles}>{text}</Text>
+      <View style={styles.AppBarTab}>
+            <Text style={styles.appBarText}>{text}</Text>
       </View>
   );
 };
