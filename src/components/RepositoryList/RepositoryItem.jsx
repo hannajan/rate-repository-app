@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 });
 
 const RepositoryItem = ({ item }) => (
-  <View style={styles.container}>
+  <View testID='repositoryItem' style={styles.container}>
     <Image
       style={styles.tinyLogo} 
       source={{ uri: item.ownerAvatarUrl }} 

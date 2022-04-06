@@ -14,7 +14,7 @@ const StatInfo = ({ name, count }) => {
   const countTrimmed = (count / 1000).toFixed(1);
 
   return (
-    <View style={styles.stat}>
+    <View testID={`stat:${name}`} style={styles.stat}>
       {count >= 1000 ?
       <Text fontWeight='bold'>{countTrimmed}k</Text>
       : <Text fontWeight='bold'>{count}</Text> 
