@@ -1,5 +1,5 @@
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
-import theme from '../theme';
+import theme from '../../theme';
 import RepoInfoContainer from './RepoInfoContainer';
 import StatBar from './StatBar';
 
