@@ -2,6 +2,7 @@ import { FlatList, View, StyleSheet, Pressable } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../../hooks/useRepositories';
 import { useNavigate } from 'react-router-native';
+import Text from '../Text';
 
 const styles = StyleSheet.create({
   separator: {
@@ -31,13 +32,15 @@ export const RepositoryListContainer = ({ repositories }) => {
           <RepositoryItem item={item} />
         </Pressable>
       )}
-      // other props
     />
   );
 };
 
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const { repositories, loading } = useRepositories();
+
+  if(loading) return <Text>Loading...</Text>
+
   return <RepositoryListContainer repositories={repositories} />;
 };
 

@@ -2,7 +2,6 @@ import { View, Image, StyleSheet, Dimensions } from 'react-native';
 import theme from '../../theme';
 import RepoInfoContainer from './RepoInfoContainer';
 import StatBar from './StatBar';
-import Text from '../Text';
 import GitHubButton from './GitHubButton';
 
 const screenWidth = Dimensions.get('window').width;
