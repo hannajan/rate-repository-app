@@ -2,6 +2,8 @@ import { View, Image, StyleSheet, Dimensions } from 'react-native';
 import theme from '../../theme';
 import RepoInfoContainer from './RepoInfoContainer';
 import StatBar from './StatBar';
+import Text from '../Text';
+import GitHubButton from './GitHubButton';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -29,6 +31,7 @@ const RepositoryItem = ({ item }) => (
     />
     <RepoInfoContainer fullName={item.fullName} description={item.description} language={item.language}/>
     <StatBar item={item} />
+    {item.url && <GitHubButton url={item.url}/>}
   </View>
 );
 
