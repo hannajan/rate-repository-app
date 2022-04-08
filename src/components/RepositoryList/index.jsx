@@ -5,7 +5,6 @@ import useRepositories from '../../hooks/useRepositories';
 import { useDebounce } from 'use-debounce';
 import RepositoryMenu from '../RepositoryMenu';
 import { useNavigate } from 'react-router-native';
-import Text from '../Text';
 import { SORT_METHOD, SORT_OPTIONS } from '../../constants';
 
 const styles = StyleSheet.create({
@@ -24,6 +23,7 @@ export const RepositoryListContainer = ({
   setSortOption,
   searchQuery,
   setSearchQuery,
+  onEndReached,
 }) => {
   let navigate = useNavigate();
 
@@ -54,6 +54,8 @@ export const RepositoryListContainer = ({
           setSearchQuery={setSearchQuery}
         />
       }
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.5}
     />
   );
 };
@@ -64,9 +66,16 @@ const RepositoryList = () => {
   const [sortOption, setSortOption] = useState(SORT_OPTIONS.Latest);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchKeyword] = useDebounce(searchQuery, 1000);
-  const { repositories, loading } = useRepositories(orderBy, orderDirection, searchKeyword);
+  const { repositories, fetchMore } = useRepositories({
+    first: 4,
+    orderBy,
+    orderDirection,
+    searchKeyword,
+  });
 
-  if (loading) return <Text>Loading...</Text>;
+  const onEndReached = () => {
+    fetchMore();
+  };
 
   return (
     <RepositoryListContainer
@@ -77,6 +86,7 @@ const RepositoryList = () => {
       setSortOption={setSortOption}
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
+      onEndReached={onEndReached}
     />
   );
 };

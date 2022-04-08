@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-native';
 import { useQuery } from '@apollo/client';
 
-import Text from '../Text'
 import { GET_REPOSITORY } from '../../graphql/queries'
 
 import RepositoryItem from './RepositoryItem';
 import ReviewItem from './ReviewItem';
 import { FlatList, StyleSheet, View } from 'react-native'
+
 
 const styles = StyleSheet.create({
   repoInfoContainer: {
@@ -30,17 +30,36 @@ const RepositoryInfo = ({ repository }) => {
 
 const Repository = () => {
   const { id } = useParams();
+  let variables = {
+    repositoryId: id,
+    first: 4,
+  }
 
-  const { loading, error, data } = useQuery(GET_REPOSITORY, {
+  const { data, loading, fetchMore } = useQuery(GET_REPOSITORY, {
     fetchPolicy: 'cache-and-network',
-    variables: { repositoryId: id },
+    variables,
   });
-
-  if (loading) return <Text>Loading...</Text>;
-  if (error) return <Text>`Error! ${error.message}`</Text>;
-
-  const reviews = data.repository.reviews.edges.map(edge => edge.node)
   
+  let reviews = data?.repository.reviews.edges.map(edge => edge.node)
+
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data?.repository.reviews.pageInfo.hasNextPage;
+
+    if(!canFetchMore) return;
+
+    fetchMore({
+      variables: {
+        ...variables,
+        after: data.repository.reviews.pageInfo.endCursor,
+      }
+    })
+  }
+
+  const onEndReach = () => {
+    handleFetchMore();
+  }
+
+  if(!data) return null;
 
   return (
     <FlatList
@@ -49,6 +68,8 @@ const Repository = () => {
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={({ id }) => id}
       ListHeaderComponent={() => <RepositoryInfo repository={data.repository} />}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   )
 };
