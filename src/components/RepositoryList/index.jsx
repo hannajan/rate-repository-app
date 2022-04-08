@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FlatList, View, StyleSheet, Pressable } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../../hooks/useRepositories';
+import { useDebounce } from 'use-debounce';
 import RepositoryMenu from '../RepositoryMenu';
 import { useNavigate } from 'react-router-native';
 import Text from '../Text';
@@ -15,11 +16,19 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const RepositoryListContainer = ({ repositories, setOrderBy, setOrderDirection, sortOption, setSortOption }) => {
+export const RepositoryListContainer = ({
+  repositories,
+  setOrderBy,
+  setOrderDirection,
+  sortOption,
+  setSortOption,
+  searchQuery,
+  setSearchQuery,
+}) => {
   let navigate = useNavigate();
 
   const repositoryNodes = repositories
-    ? repositories.edges.map(edge => edge.node)
+    ? repositories.edges.map((edge) => edge.node)
     : [];
 
   const onPress = (id) => {
@@ -30,12 +39,21 @@ export const RepositoryListContainer = ({ repositories, setOrderBy, setOrderDire
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) =>  (
+      renderItem={({ item }) => (
         <Pressable onPress={() => onPress(item.id)}>
           <RepositoryItem item={item} />
         </Pressable>
       )}
-      ListHeaderComponent={<RepositoryMenu setOrderBy={setOrderBy} setOrderDirection={setOrderDirection} sortOption={sortOption} setSortOption={setSortOption}/>}
+      ListHeaderComponent={
+        <RepositoryMenu
+          setOrderBy={setOrderBy}
+          setOrderDirection={setOrderDirection}
+          sortOption={sortOption}
+          setSortOption={setSortOption}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+      }
     />
   );
 };
@@ -44,17 +62,23 @@ const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState(SORT_METHOD.Created);
   const [orderDirection, setOrderDirection] = useState();
   const [sortOption, setSortOption] = useState(SORT_OPTIONS.Latest);
-  const { repositories, loading } = useRepositories(orderBy, orderDirection);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchKeyword] = useDebounce(searchQuery, 1000);
+  const { repositories, loading } = useRepositories(orderBy, orderDirection, searchKeyword);
 
-  if(loading) return <Text>Loading...</Text>
+  if (loading) return <Text>Loading...</Text>;
 
-  return <RepositoryListContainer 
-    repositories={repositories} 
-    setOrderBy={setOrderBy} 
-    setOrderDirection={setOrderDirection}
-    sortOption={sortOption}
-    setSortOption={setSortOption}  
-  />;
+  return (
+    <RepositoryListContainer
+      repositories={repositories}
+      setOrderBy={setOrderBy}
+      setOrderDirection={setOrderDirection}
+      sortOption={sortOption}
+      setSortOption={setSortOption}
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
+    />
+  );
 };
 
 export default RepositoryList;
