@@ -49,11 +49,16 @@ const AppBar = () => {
         ? <Pressable onPress={handleSignOut}>
             <AppBarTab text='Sign out' />
           </Pressable>
-        : <Link to='signIn'>
+        : 
+          <Link to='signIn'>
             <AppBarTab text='Sign in' />
           </Link>
       }
-
+      {!currentUser && 
+        <Link to='signUp'>
+          <AppBarTab text='Sign up' />
+        </Link>
+      }
     </ScrollView>
   </View>
   );
