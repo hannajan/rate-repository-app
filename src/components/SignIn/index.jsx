@@ -2,8 +2,8 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import { StyleSheet, View } from 'react-native';
 import theme from '../../theme'
-import FormikTextInput from './FormikTextInput';
-import FormButton from './FormButton';
+import FormikTextInput from '../FormikTextInput';
+import FormButton from '../FormButton';
 import useSignIn from '../../hooks/useSignIn';
 import { useNavigate } from 'react-router-native';
 
