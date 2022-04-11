@@ -11,5 +11,6 @@ export const REPO_INFO = gql`
         forksCount
         reviewCount
         ratingAverage
+        url
   }
 `

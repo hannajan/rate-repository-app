@@ -1,19 +1,12 @@
 import { useState } from 'react';
-import { FlatList, View, StyleSheet, Pressable } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../../hooks/useRepositories';
 import { useDebounce } from 'use-debounce';
 import RepositoryMenu from '../RepositoryMenu';
 import { useNavigate } from 'react-router-native';
 import { SORT_METHOD, SORT_OPTIONS } from '../../constants';
-
-const styles = StyleSheet.create({
-  separator: {
-    height: 10,
-  },
-});
-
-const ItemSeparator = () => <View style={styles.separator} />;
+import ItemSeparator from '../ItemSeparator';
 
 export const RepositoryListContainer = ({
   repositories,

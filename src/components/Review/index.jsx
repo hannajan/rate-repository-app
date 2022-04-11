@@ -67,7 +67,6 @@ const Review = () => {
     
     try {
       const data = await createReview(reviewInput);
-      console.log(data.repositoryId)
       navigate(`/repositories/${data.repositoryId}`)
     } catch (e) {
       console.log(e);

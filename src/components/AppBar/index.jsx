@@ -1,5 +1,5 @@
 import { View, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { Link } from 'react-router-native';
+import { Link, useNavigate } from 'react-router-native';
 import Constants from 'expo-constants';
 import theme from '../../theme';
 import AppBarTab from './AppBarTab'
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  let navigate = useNavigate();
   const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
   const result = useQuery(GET_CURRENT_USER);
@@ -33,6 +34,7 @@ const AppBar = () => {
   const handleSignOut = async () => {
     await authStorage.removeAccessToken();
     apolloClient.resetStore();
+    navigate('/', { replace: true })
   };
 
   return (
@@ -45,6 +47,11 @@ const AppBar = () => {
       <Link to='review'>
           <AppBarTab text='Create a review' />
       </Link>}
+      {currentUser && 
+      <Link to='myReviews'>
+        <AppBarTab text='My reviews' />
+      </Link>
+      }
       {currentUser 
         ? <Pressable onPress={handleSignOut}>
             <AppBarTab text='Sign out' />

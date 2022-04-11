@@ -20,6 +20,10 @@ const styles = StyleSheet.create({
     height: (screenWidth * 0.15),
     borderRadius: 5,
   },
+  buttonContainer: {
+    flexGrow: 2,
+    flexDirection: 'column',
+  },
 });
 
 const RepositoryItem = ({ item }) => (
@@ -30,7 +34,9 @@ const RepositoryItem = ({ item }) => (
     />
     <RepoInfoContainer fullName={item.fullName} description={item.description} language={item.language}/>
     <StatBar item={item} />
-    {item.url && <GitHubButton url={item.url}/>}
+    <View style={styles.buttonContainer}>
+      {item.url && <GitHubButton style={styles.gitHubButton} url={item.url}/>}
+    </View>
   </View>
 );
 

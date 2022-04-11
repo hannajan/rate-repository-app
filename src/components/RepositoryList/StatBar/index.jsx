@@ -8,7 +8,7 @@ const StatBar = ({ item }) => {
       padding: 10,
       flexDirection: 'row',
       justifyContent: 'space-around',
-      flexGrow: 1,
+      flexGrow: 10,
     }
   }
 

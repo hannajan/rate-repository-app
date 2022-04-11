@@ -36,7 +36,6 @@ export const GET_REPOSITORY = gql`
   query Query($repositoryId: ID!, $first: Int, $after: String) {
     repository(id: $repositoryId) {
       ...RepositoryInfo
-      url
       reviews(first: $first, after: $after) {
         totalCount
         edges {
@@ -64,10 +63,26 @@ export const GET_REPOSITORY = gql`
 `;
 
 export const GET_CURRENT_USER = gql`
-  query {
+  query getCurrentUser($includeReviews: Boolean = false){
     me {
       id
       username
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            id
+            repository {
+              fullName
+            }
+            createdAt
+            text
+            rating
+            user {
+              username
+            }
+          }
+        }
+      }
     }
   }
 `;
