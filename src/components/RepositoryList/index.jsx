@@ -60,7 +60,7 @@ const RepositoryList = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchKeyword] = useDebounce(searchQuery, 1000);
   const { repositories, fetchMore } = useRepositories({
-    first: 4,
+    first: 8,
     orderBy,
     orderDirection,
     searchKeyword,

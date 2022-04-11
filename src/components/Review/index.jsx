@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import FormikTextInput from '../FormikTextInput';
 import FormButton from '../FormButton';
-import useCreateReview from '../../hooks/useCreateReview'
+import useReview from '../../hooks/useReview'
 import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
@@ -55,7 +55,7 @@ const ReviewForm = ({ onSubmit }) => {
 }
 
 const Review = () => {
-  const [createReview] = useCreateReview();
+  const { createReview } = useReview();
   let navigate = useNavigate();
 
 

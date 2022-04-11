@@ -2,7 +2,7 @@ import { View, Image, StyleSheet, Dimensions } from 'react-native';
 import theme from '../../theme';
 import RepoInfoContainer from './RepoInfoContainer';
 import StatBar from './StatBar';
-import GitHubButton from './GitHubButton';
+import Button from '../Button';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const RepositoryItem = ({ item }) => (
+const RepositoryItem = ({ item, fullView = false }) => (
   <View testID='repositoryItem' style={styles.container}>
     <Image
       style={styles.tinyLogo} 
@@ -35,7 +35,7 @@ const RepositoryItem = ({ item }) => (
     <RepoInfoContainer fullName={item.fullName} description={item.description} language={item.language}/>
     <StatBar item={item} />
     <View style={styles.buttonContainer}>
-      {item.url && <GitHubButton style={styles.gitHubButton} url={item.url}/>}
+      {fullView && <Button style={styles.gitHubButton} url={item.url}/>}
     </View>
   </View>
 );

@@ -6,24 +6,19 @@ import { GET_REPOSITORY } from '../../graphql/queries'
 import RepositoryItem from './RepositoryItem';
 import ReviewItem from './ReviewItem';
 import { FlatList, StyleSheet, View } from 'react-native'
-
+import ItemSeparator from '../ItemSeparator';
 
 const styles = StyleSheet.create({
   repoInfoContainer: {
     marginBottom: 10,
-  },
-  separator: {
-    height: 10,
-  },
+  }
 });
-
-const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryInfo = ({ repository }) => {
 
   return (
     <View style={styles.repoInfoContainer}>
-      <RepositoryItem item={repository} />
+      <RepositoryItem item={repository} fullView={true}/>
     </View>
   );
 };

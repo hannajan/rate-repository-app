@@ -72,7 +72,9 @@ export const GET_CURRENT_USER = gql`
           node {
             id
             repository {
+              id
               fullName
+              url
             }
             createdAt
             text

@@ -31,7 +31,6 @@ const Main = () => {
         <Route path='myReviews' element={<MyReviews />} exact />
         <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
-      
     </View>
   );
 };
